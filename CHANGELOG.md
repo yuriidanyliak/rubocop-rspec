@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add `FactoryGirl/CreateList` cop. ([@Darhazer][])
+
 ## 1.20.1 (2017-11-15)
 
 * Add "without" to list of default allowed prefixes for `RSpec/ContextWording`. ([@bquorning][])
