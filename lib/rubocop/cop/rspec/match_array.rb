@@ -16,12 +16,10 @@ module RuboCop
         MSG = 'Prefer `contain_exactly` when matching an array literal.'.freeze
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless method_name == :match_array
+          return unless node.method_name == :match_array
+          return unless node.child_nodes.one?
+          return unless node.child_nodes.first.array_type?
 
-          return unless args.all? do |child_node|
-            child_node.is_a?(Parser::AST::Node) && child_node.type == :array
-          end
           add_offense node, :expression
         end
 

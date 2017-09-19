@@ -16,12 +16,9 @@ module RuboCop
         MSG = 'Prefer `match_array` when matching array values.'.freeze
 
         def on_send(node)
-          _receiver, method_name, *args = *node
-          return unless method_name == :contain_exactly
+          return unless node.method_name == :contain_exactly
+          return unless node.each_child_node.all?(&:splat_type?)
 
-          return unless args.all? do |child_node|
-            child_node.is_a?(Parser::AST::Node) && child_node.type == :splat
-          end
           add_offense node, :expression
         end
 

@@ -46,6 +46,7 @@ RSpec/BeforeAfterAll:
 RSpec/ContainExactly:
   Description: Prefer `match_array` when matching array values.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ContainExactly
 
 RSpec/DescribeClass:
   Description: Check that the first argument to the top level describe is a constant.
@@ -203,6 +204,7 @@ RSpec/LetSetup:
 RSpec/MatchArray:
   Description: Prefer `contain_exactly` when matching an array literal.
   Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/MatchArray
 
 RSpec/MessageChain:
   Description: Check that chains of messages are not being stubbed.

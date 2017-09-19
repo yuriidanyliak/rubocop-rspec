@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Added `RSpec/ContainExactly` and `RSpec/MatchArray` cops. ([@faucct][])
+
 ## 1.18.0 (2017-09-29)
 
 * Fix false positive in `Capybara/FeatureMethods`. ([@Darhazer][])
@@ -255,3 +257,4 @@
 [@bmorrall]: https:/github.com/bmorrall
 [@zverok]: https:/github.com/zverok
 [@timrogers]: https://github.com/timrogers
+[@faucct]: https:/github.com/faucct
