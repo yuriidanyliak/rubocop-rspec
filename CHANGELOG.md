@@ -2,6 +2,8 @@
 
 ## Master (Unreleased)
 
+* Add autocorrect support to `RSpec/LetBeforeExamples`. ([@Darhazer][])
+
 ## 1.20.0 (2017-11-09)
 
 * Rename namespace `FactoryGirl` to `FactoryBot` following original library update. ([@walf443][])
