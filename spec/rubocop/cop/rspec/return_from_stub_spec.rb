@@ -144,12 +144,6 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
 
   context 'with EnforcedStyle `block`' do
     let(:enforced_style) { 'block' }
-    let(:config) do
-      merged = RuboCop::ConfigLoader
-        .default_configuration['RSpec/ReturnFromStub'].merge(cop_config)
-      RuboCop::Config.new('RSpec/ReturnFromStub' => merged,
-                          'Layout/IndentationWidth' => { 'Width' => 2 })
-    end
 
     it 'finds static values returned from method' do
       expect_offense(<<-RUBY)
@@ -204,12 +198,8 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
       )
     RUBY
     corrected = <<-RUBY # Not perfect, but good enough.
-      allow(Foo).to receive(:bar) do
-        {
-        a: 42,
-        b: 43
-        }
-      end
+      allow(Foo).to receive(:bar) { { a: 42,
+        b: 43 } }
     RUBY
 
     include_examples 'autocorrect', original, corrected
@@ -223,10 +213,8 @@ RSpec.describe RuboCop::Cop::RSpec::ReturnFromStub, :config do
         'me')
     RUBY
     corrected = <<-RUBY
-      allow(Foo).to receive(:bar) do
-        'You called ' \\
-        'me'
-      end
+      allow(Foo).to receive(:bar) { 'You called ' \\
+        'me' }
     RUBY
 
     include_examples 'autocorrect', original, corrected

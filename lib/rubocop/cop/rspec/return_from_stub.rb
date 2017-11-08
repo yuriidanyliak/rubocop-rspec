@@ -55,7 +55,7 @@ module RuboCop
 
         def autocorrect(node)
           if style == :block
-            AndReturnCallCorrector.new(node, config)
+            AndReturnCallCorrector.new(node)
           else
             BlockBodyCorrector.new(node)
           end
@@ -95,27 +95,21 @@ module RuboCop
 
         # :nodoc:
         class AndReturnCallCorrector
-          def initialize(node, config)
+          def initialize(node)
             @node = node
             @receiver, _method_name, @args = *node
-            @config = config
           end
 
           def call(corrector)
             # Heredoc autocorrection is not yet implemented.
             return if heredoc?
 
-            if args.single_line?
-              corrector.replace(range, " { #{replacement} }")
-            else
-              corrector.replace(range, multiline_replacement)
-            end
+            corrector.replace(range, " { #{replacement} }")
           end
 
           private
 
           attr_reader :node, :receiver, :args
-          attr_reader :config
 
           def heredoc?
             args.loc.is_a?(Parser::Source::Map::Heredoc)
@@ -129,42 +123,16 @@ module RuboCop
             )
           end
 
-          def multiline_replacement
-            buffer = StringIO.new
-            buffer << " do\n"
-            replacement.lines.each do |line|
-              buffer << "#{indentation}#{line.strip}\n"
-            end
-            buffer << "#{offset}end"
-            buffer.string
-          end
-
           def replacement
-            if args.hash_type? && !args.braces?
-              hash_replacement
+            if hash_without_braces?
+              "{ #{args.source} }"
             else
               args.source
             end
           end
 
-          def hash_replacement
-            if args.single_line?
-              "{ #{args.source} }"
-            else
-              "{\n#{args.source}\n}"
-            end
-          end
-
-          def configured_indentation_width
-            config.for_cop('IndentationWidth')['Width']
-          end
-
-          def indentation
-            offset + (' ' * configured_indentation_width)
-          end
-
-          def offset
-            ' ' * (node.source_range.source_line =~ /\S/)
+          def hash_without_braces?
+            args.hash_type? && !args.braces?
           end
         end
 
