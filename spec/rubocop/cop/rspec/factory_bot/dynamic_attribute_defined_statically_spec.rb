@@ -89,3 +89,4 @@ RSpec.describe RuboCop::Cop::RSpec::FactoryBot::DynamicAttributeDefinedStaticall
     end
   end
 end
+# rubocop:enable Metrics/LineLength
