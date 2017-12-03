@@ -104,6 +104,11 @@ RSpec/ExampleLength:
   Max: 5
   StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleLength
 
+RSpec/ExampleWithoutExpectation:
+  Description: Checks for examples without expectations.
+  Enabled: true
+  StyleGuide: http://www.rubydoc.info/gems/rubocop-rspec/RuboCop/Cop/RSpec/ExampleWithoutExpectation
+
 RSpec/ExampleWording:
   Description: Checks for common mistakes in example descriptions.
   Enabled: true
